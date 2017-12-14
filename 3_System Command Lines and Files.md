@@ -61,4 +61,6 @@ This trick is usually needed only if
   
 It is also possible to completely suppress the pop-up console window that appears on on file clicking. Files whose names end in __.pyw__ extension will display only windows constructed by your script, not the default console window. __.pyw__ files are simply __.py__ files that have this special operational behavior on Windows. 
   
-  
+  #### Other Icon-click limitations:-
+  1. If the script generates an error, the error message text is written to the pop-up console window, which immediately disappears. Adding the input() call to the file will not help, because the script is likely to be aborted before it reaches this call.
+ 
