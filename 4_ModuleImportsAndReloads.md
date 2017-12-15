@@ -38,6 +38,8 @@ The __from__ statement opies a name out of a module. The __reload__ function its
 The _reload_ function expects the name of an already, successffully, loaded module object. So, the module should be successfully imported before reloading it.
 Also, _reload_ also expects a parenthesis around the module object name as it is a function, while _import_ is a statement. That's why reload returns an output - a Python module object.
 
+Reloads aren't transitive - reloading a module reloads that module only, not any modules it may import - so sometimes, we may have to reload multiple files.
+
 ## Attributes
 A module is a package of variable names, known as _namespace_, and the names within that package are called _attributes_.
 An attribute is a variable name that is attached to a specific object (like a module).
@@ -74,3 +76,21 @@ Or
 >>>
 ```
 Technically, the _from_ statement copies a module's attributes, such that they become simple variables in the recipient. 
+
+In practice, module files usually define more than one name to be used in and out. (Refer the sample code "threeNames" for the usage). That file assigns three variables and so generates three attributes for the outside world.
+
+### Modules and Namespaces
+Each module itself is a self-contained namespace.
+One module file cannot see the names defined in another file, unless it is imported explicitly. Therefore, modules serve to minimize name collisions.
+
+## Using _exec_ to Run Module Files
+The _exec(open('module.py').resd())_ built-in function call is another way to launch files from the interactive prompt without having to import and later reload. 
+Each such _exec_ runs the current version of the code read from the file, without requiring later reloads.
+The exec call has an effect similar to import, but it doesn't actually import the module.
+Each time, a call to exec runs the file's code anew, as though the code is pasted at the place of exec. That's why exec does not require module reloads after the file changes - it skips the normal import logic.
+
+Disadvantage:
+Like the _from_ statement, _exec_ has the potential to silently overwrite the variable that are being used currently. 
+
+Sample Code: UsingExec
+
