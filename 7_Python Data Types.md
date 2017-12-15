@@ -27,3 +27,17 @@ Sets                          | set('abc'), {'a', 'b', 'c'}
 Other Core Types              | Booleans, types, None
 Program unit types            | Functions, modules, classes
 Implementation-related types  | Compiled code, stack tracebacks
+
+
+Once an object is created, its operation set are bound for all time. 
+i.e. Python is _dynamically typed_, a model that keeps track of types automatically instead of requiring declaration code, but it is also a _strongly typed_, a constraint that means you can perform on an object only operations that are valid for it's type.
+
+### Numbers
+Includes:
+- _integers_ that have no fractional part
+- _floating-point_ numbers that has fractional part
+- _complex_ numbers with imaginary parts
+- _decimals_ with fixed precision
+- _rationals_ with numerator and denominator
+- full-featured _sets_
+
