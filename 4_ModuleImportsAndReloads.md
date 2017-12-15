@@ -49,3 +49,28 @@ Externally, a module file's names can be fetched in the following ways:
 2. Using the _from_ statement
 3. Using the _reload_ call
 
+Example:-
+
+```
+myFile.py
+
+title = "The Meaning of Life"
+```
+When this file, myFile.py is imported, it's code is run to generate the module's attribute. i.e. the assignment statement creates a variable and module attribute named 'title'.
+
+The attribute can be accessed in two ways:
+
+```Python
+>>> import myFile       # Run file; load module as a whole
+>>> myFile.title        # Use it's attributes names: '.' to qualify
+'The Meaning of Life'
+>>>
+```
+Or
+```Python
+>>> from myFile import title    # Run file, copy it's names
+>>> title                       # Use name directly, no need to qualify
+'The Meaning of Life'
+>>>
+```
+Technically, the _from_ statement copies a module's attributes, such that they become simple variables in the recipient. 
