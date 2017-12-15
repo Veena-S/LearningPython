@@ -1,4 +1,4 @@
-### Import and Reload basics
+## Import and Reload basics
 Every file of Python source code whose name ends in a __.py__ extension is a module. No special code or syntax is required to make a file a module - any such file will do.
 Other files can access the item defined in a module by __importing__ that module - import operations load another file and grant access to that file's contents.
 The contents of a module are made available to the outside world through its attributes.
@@ -19,7 +19,7 @@ Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
 ```
 
 To force the Python to run the file again in the same session without stopping and restarting the session, the function *__reload__* available in the __imp__ standard library module can be called.
-```
+``` Python
 >>> from imp import reload      # Must load from module in 3.X (only)
 >>> reload(script1)
 win32
@@ -27,4 +27,25 @@ win32
 Spam!Spam!Spam!Spam!Spam!Spam!Spam!Spam!
 <module 'script1' from 'D:\\LearningPython\\CodeSamples\\script1.py'>
 ```
-The __from__ statement here simply copies a name out of a module. The __reload__ function itself loads and runs the current version of the file's code, picking up changes.
+In 3.X, the reload built-in is moved to imp standard library module. So, it can be used in following way also:
+```Python
+import imp
+imp.reload(M)
+```
+
+The __from__ statement opies a name out of a module. The __reload__ function itself loads and runs the current version of the file's code, picking up the changes done.
+
+The _reload_ function expects the name of an already, successffully, loaded module object. So, the module should be successfully imported before reloading it.
+Also, _reload_ also expects a parenthesis around the module object name as it is a function, while _import_ is a statement. That's why reload returns an output - a Python module object.
+
+## Attributes
+A module is a package of variable names, known as _namespace_, and the names within that package are called _attributes_.
+An attribute is a variable name that is attached to a specific object (like a module).
+
+Importers gain accesss to all the names assigned at the top level of a module's file. These names are usually assigned to tools exported by the module - functions, classes, variables etc - that are intended to be used in other files and other programs.
+
+Externally, a module file's names can be fetched in the following ways:
+1. Using the _import_ statement
+2. Using the _from_ statement
+3. Using the _reload_ call
+
