@@ -187,3 +187,84 @@ bytearray(b'spameggs')
 ```
 The _bytearray_ supports in-place changes for text, but only for text whose characters are all at most 8-bits wide (e.g: ASCII).
 All other strings are still immutable - _bytearray_ is a distinct hybrid of immutable _bytes_ strings (whose b'...' syntax is required depending on Python version) and mutable _lists_ ( coded and displayed in [] ).
+
+#### Type-Specific Methods:
+In addition to generic sequence operations, strings also have operations all their own, available as methods.
+Sample code to show some string methods and its usage:
+```Python
+>>> S = 'Spam'
+>>> # To find the offset of a substring is S
+>>> S.find('pa')
+1
+>>> S.find('pq')     # If the substring is not present it will return -1
+-1
+>>> S
+'Spam'
+>>> # To replace occurrences of a substring with another
+>>> S.replace( 'pa', 'XYZ')
+'SXYZm'
+>>> S
+'Spam'
+>>> 
+```
+Other methods split a string to substrings on a delimiter, perform case conversions, test the content of the string and strip whitespcae characters off the ends of the string:
+```Python
+>>> line = 'aaa, bbbb, ccccc, dd'
+>>> line.split(',')	# Split on a delimiter into a list of substrings
+['aaa', ' bbbb', ' ccccc', ' dd']
+>>> line
+'aaa, bbbb, ccccc, dd'
+>>> line.split(', ')
+['aaa', 'bbbb', 'ccccc', 'dd']
+>>> 
+>>> S = 'Spam'
+>>> S.upper()        # Upper-case conversion
+'SPAM'
+>>> S.lower()        # Lower-case conversion
+'spam'
+>>> S                # No change in the original string
+'Spam'
+>>> S.isalpha()      # Content test: isalpha, isdigit etc.
+True
+>>> S.isdigit()
+False
+>>> X = 'a2'
+>>> X.isdigit()
+False
+>>> X = '2'
+>>> X.isdigit()
+True
+>>> 
+>>> line = 'aaa,bbb,ccc,dd\n'
+>>> line
+'aaa,bbb,ccc,dd\n'
+>>> line.rstrip()	         # Remove whitespace
+'aaa,bbb,ccc,dd'
+>>> line
+'aaa,bbb,ccc,dd\n'
+>>> line.rstrip().split(',')     # Combining both the operations
+['aaa', 'bbb', 'ccc', 'dd']
+>>> 
+```
+
+Strings also support an advanced substitution operation known as _formatting_, available as both an expression and a string method call.
+```Python
+>>> # Formatting Expression
+>>> '%s, eggs, and %s' % ('spam', 'SPAM!')
+'spam, eggs, and SPAM!'
+>>> 
+>>> # Formatting Method ( 2.6+, 3.0+)
+>>> '{0}, eggs, and {1}'.format('spam', 'SPAM!')
+'spam, eggs, and SPAM!'
+>>> 
+>>> # Numbers optional (2.7+, 3.1+)
+>>> '{}, eggs, and {}'.format('spam', 'SPAM!')
+'spam, eggs, and SPAM!'
+>>> 
+>>> ### Formatting to generate numeric reports
+>>> '{:,.2f}'.format(296888.2567)	# Separators, decimal digits
+'296,888.26'
+>>> '%.2f | %+05d' % ( 3.14159, -42) 	# Digits, padding and signs
+'3.14 | -0042'
+```
+
