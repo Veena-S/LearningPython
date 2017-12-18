@@ -69,6 +69,7 @@ Strings are used to record both textual information aa well as arbitrary collect
 Strings are an example of _sequence_ in Python - a positionally ordered collection of other objects. Sequences maintain a left-to-right order among the items they contain : their items are stored and fetched by their relative positions.
 Strings are sequences of one-character strings.
 Other sequence types include lists, tuples etc.
+Strings are _immutable_.
 
 #### Sequence Operations:
 1. Strings supports operations that assume a positional ordering among items.
@@ -136,4 +137,53 @@ Other sequence types include lists, tuples etc.
     'Spam'
     >>> 
     ```
+#### Immutability:-
+Strings are _immutable_ in Python - every string operation is defined to produce a new string as its result, that cannot be changed in place after they are created.
+i.e Valued of immutable objects can never be overwritten. But you can always build a new one and assign it to the same name. This is because, Python cleans up old objects on the go.
 
+``` Python
+>>> S = 'Spam'
+>>> S
+'Spam'
+>>> S[0]
+'S'
+>>> S[0] = 'z'		# Immutable objects cannot be changed.
+    ....error text...
+    S[0] = 'z'		# Immutable objects cannot be changed.
+TypeError: 'str' object does not support item assignment
+>>> S = 'z' + S[1:]	# Can make new objects
+>>> S
+'zpam'
+>>> 
+```
+
+Every object in Python is classified as Immutable (unchangeable) or not.
+The core types _numbers_, _strings_ and _tuples_ are immutable, while _lists_, _dictionaries_ and _sets_ are not.
+Immutability can be used to guarantee that an object remains constant throughout the program; mutable objects' values can be changed at any time and place.
+
+The text based data can be changed _in-place_, in either of two ways:
+1. Expand it into a _list_ of individual characters and join it back together with nothing in between
+```Python
+>>> S = 'shrubberry'	# Expand to a list: [...]
+>>> L = list(S)
+>>> L
+['s', 'h', 'r', 'u', 'b', 'b', 'e', 'r', 'r', 'y']
+>>> L[1] = 'c'		# Change it in place
+>>> ''.join(L)		# Join with empty delimiter - joining all the items in the list.
+'scrubberry'
+>>> L
+['s', 'c', 'r', 'u', 'b', 'b', 'e', 'r', 'r', 'y']
+>>> '@'.join(L)   # Try joining with another delimiter e.g: @
+'s@c@r@u@b@b@e@r@r@y'
+```
+2. Use _bytearray_ type available in Pythons 2.6, 3.0 and later
+```Python
+>>> B = bytearray(b'spam')	# A bytes/list hybrid (ahead)
+>>> B.extend(b'eggs')		# b needed in 3.X, not in 2.X
+>>> B
+bytearray(b'spameggs')
+>>> B.decode()			# Translate to normal string
+'spameggs'
+```
+The _bytearray_ supports in-place changes for text, but only for text whose characters are all at most 8-bits wide (e.g: ASCII).
+All other strings are still immutable - _bytearray_ is a distinct hybrid of immutable _bytes_ strings (whose b'...' syntax is required depending on Python version) and mutable _lists_ ( coded and displayed in [] ).
