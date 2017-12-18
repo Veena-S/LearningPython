@@ -376,3 +376,65 @@ class str(object)
 
 >>> 
 ```
+#### Other Ways to Code Strings
+Special characters can be represented as backslash escape sequences, which Python displays in ```\xNN``` hexadecimal escape notation, unless they represent printable characters.
+```Python
+>>> S = 'A\nB\tC'	      # \n is end-of-line, \t is tab
+>>> S
+'A\nB\tC'
+>>> len(S)              # Each stands for just one character
+5
+>>> P = 'k\o'
+>>> P
+'k\\o'
+>>> P = 'k\\o'
+>>> P
+'k\\o'
+>>> ord('\n')           # \n is a byte with binary value 10 in ASCII
+10
+>>> 
+>>> S = 'A\0B\0C'	      # \0, a binary zero byte, does not terminate string
+>>> len(S)
+5
+>>> S                   # Non-printables are displayed as \xNN hex escapes
+'A\x00B\x00C'
+```
+
+
+Python allows strings to be enclosed in single or double quote characters - they mean the same thing, but allow the other type of quote to be embedded with an escape.
+It also allows multiline string literals enclosed in triple quotes (single or double ) - when this form is used, all the lines are concatenated together, and end-of-lone characters are added where line breaks appear. 
+```Python
+>>> msg = """
+aaaaaaaaaaaa
+bb'''bbbbb""yy'yyyy
+cccccccccc
+"""
+>>> msg
+'\naaaaaaaaaaaa\nbb\'\'\'bbbbb""yy\'yyyy\ncccccccccc\n'
+>>> nextMsg = """aaa
+bb'bbbbbb"yy'uuuuuu"""
+>>> nextMsg
+'aaa\nbb\'bbbbbb"yy\'uuuuuu'
+>>> changeQuote = '''aaa
+bb"bbbbbb'yy"uuuuuu'''
+>>> changeQuote
+'aaa\nbb"bbbbbb\'yy"uuuuuu'
+>>> 
+```
+
+Python also supports a _raw_ string literal that turns off the backslash mechanism. Such literals start with the letter ```r``` and are useful for strings like directory paths on Windows.
+```Python
+>>> pt = r'C:\text\new'
+>>> pt
+'C:\\text\\new'
+>>> pt = r'C:/text/new'
+>>> pt
+'C:/text/new'
+>>> pt = 'C:/text/new'
+>>> pt
+'C:/text/new'
+>>> pt = 'C:\text\new'
+>>> pt
+'C:\text\new'
+>>> 
+```
