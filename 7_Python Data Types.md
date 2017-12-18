@@ -268,3 +268,111 @@ Strings also support an advanced substitution operation known as _formatting_, a
 '3.14 | -0042'
 ```
 
+#### Getting Help
+The built-in ```dir``` function returns a list of all the attributes available to for any object passed to it.
+```Python
+>>> S
+'Spam'
+>>> dir(S)
+['__add__', '__class__', '__contains__', '__delattr__', '__dir__', '__doc__', '__eq__', '__format__', '__ge__', '__getattribute__', '__getitem__', '__getnewargs__', '__gt__', '__hash__', '__init__', '__init_subclass__', '__iter__', '__le__', '__len__', '__lt__', '__mod__', '__mul__', '__ne__', '__new__', '__reduce__', '__reduce_ex__', '__repr__', '__rmod__', '__rmul__', '__setattr__', '__sizeof__', '__str__', '__subclasshook__', 'capitalize', 'casefold', 'center', 'count', 'encode', 'endswith', 'expandtabs', 'find', 'format', 'format_map', 'index', 'isalnum', 'isalpha', 'isdecimal', 'isdigit', 'isidentifier', 'islower', 'isnumeric', 'isprintable', 'isspace', 'istitle', 'isupper', 'join', 'ljust', 'lower', 'lstrip', 'maketrans', 'partition', 'replace', 'rfind', 'rindex', 'rjust', 'rpartition', 'rsplit', 'rstrip', 'split', 'splitlines', 'startswith', 'strip', 'swapcase', 'title', 'translate', 'upper', 'zfill']
+```
+The names with _double underscores_ represent the implementation of the string object and are available to support customization.
+For e.g.: the ```__add__``` method is what really performs concatenation. Python maps plus operation to this internally, though one should not use this form.
+```Python
+>>> S + 'NI!'
+'SpamNI!'
+>>> S.__add__('NI!')
+'SpamNI!'
+>>> 
+```
+
+Generally, leading and trailing double underscores is the naming pattern Python uses for implementation details. The names without the underscores in this list are the callable methods on the String objects.
+
+The ```dir``` function simply gives the name of methods. To ask what they do, use  the help function.
+```Python
+>>> help(S.replace)
+Help on built-in function replace:
+
+replace(...) method of builtins.str instance
+    S.replace(old, new[, count]) -> str
+    
+    Return a copy of S with all occurrences of substring
+    old replaced by new.  If the optional argument count is
+    given, only the first count occurrences are replaced.
+
+>>> help(S)
+No Python documentation found for 'Spam'.
+Use help() to get the interactive help utility.
+Use help(str) for help on the str class.
+
+>>>
+```
+_PyDoc_ - a tool for extracting documentation from objects.
+
+Both dir and help accepts either a real object (like S) or the name of a data type (like str, list and dict) as arguments. The latter form returns the same list for dir, but shows full type details for help and allows to ask about a specific method via type name.
+```Python
+>>> help(str)
+Help on class str in module builtins:
+
+class str(object)
+ |  str(object='') -> str
+ |  str(bytes_or_buffer[, encoding[, errors]]) -> str
+ |  
+ |  Create a new string object from the given object. If encoding or
+ |  errors is specified, then the object must expose a data buffer
+ |  that will be decoded using the given encoding and error handler.
+ |  Otherwise, returns the result of object.__str__() (if defined)
+ |  or repr(object).
+ |  encoding defaults to sys.getdefaultencoding().
+ |  errors defaults to 'strict'.
+ |  
+ |  Methods defined here:
+ |  
+ |  __add__(self, value, /)
+ |      Return self+value.
+ |  
+ |      ####
+ |      # Other Functions removed
+ |      ####
+ |  
+ |  
+ |  __str__(self, /)
+ |      Return str(self).
+ |  
+ |  capitalize(...)
+ |      S.capitalize() -> str
+ |      
+ |      Return a capitalized version of S, i.e. make the first character
+ |      have upper case and the rest lower case.
+ |  
+ |  casefold(...)
+ |      S.casefold() -> str
+ |      
+ |      Return a version of S suitable for caseless comparisons.
+ |
+ |				####
+ |				# Other Functions removed
+ |				####
+ |  
+ |  zfill(...)
+ |      S.zfill(width) -> str
+ |      
+ |      Pad a numeric string S with zeros on the left, to fill a field
+ |      of the specified width. The string S is never truncated.
+ |  
+ |  ----------------------------------------------------------------------
+ |  Static methods defined here:
+ |  
+ |  maketrans(x, y=None, z=None, /)
+ |      Return a translation table usable for str.translate().
+ |      
+ |      If there is only one argument, it must be a dictionary mapping Unicode
+ |      ordinals (integers) or characters to Unicode ordinals, strings or None.
+ |      Character keys will be then converted to ordinals.
+ |      If there are two arguments, they must be strings of equal length, and
+ |      in the resulting dictionary, each character in x will be mapped to the
+ |      character at the same position in y. If there is a third argument, it
+ |      must be a string, whose characters will be mapped to None in the result.
+
+>>> 
+```
