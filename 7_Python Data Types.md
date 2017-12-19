@@ -606,3 +606,82 @@ Result of those operation will be a list itself.
 >>> 
 ```
 
+#### Type-Specific Operations:
+- Have no fixed type constraint
+- Have no fixed size: can grow and shrink on demand
+```Python
+>>> L.append('NI')	   # Growing: add an object at the end of the list
+>>> L
+[123, 'spam', 1.23, 'NI']
+>>> L.pop(2)		      # Shrinking: deleting an item in the middle
+1.23
+>>> L
+[123, 'spam', 'NI']
+
+>>> L.append(1.23)
+>>> L
+[123, 'spam', 'NI', 1.23]
+>>> del L[3]            # To remove an item from an index
+>>> L
+[123, 'spam', 'NI']
+>>> 
+
+>>> # To insert an item at an arbitrary position
+>>> L.insert(3, '4u')      # Item is inserted before the specified index.
+>>> L
+[123, 'spam', 'NI', '4u']
+>>> L.insert(6, '4u')      # Item is inserted as the last item, even though specified index is not valid.
+>>> L
+[123, 'spam', 'NI', '4u', '4u']
+
+>>> # Removes a given item by value
+>>> L.remove('4u')         # removes the first occurance of the value
+>>> L
+[123, 'spam', 'NI', '4u']
+
+>>> # Add multiple items at the end
+>>> L.extend( 'A1')     # Iterates through the given value and adds each .
+>>> L
+[123, 'spam', 'NI', '4u', 'A', '1']
+>>> L.extend( 567 )
+TypeError: 'int' object is not iterable
+>>> L.extend( '5''67' )
+>>> L
+[123, 'spam', 'NI', '4u', 'A', '1', '5', '6', '7']
+
+>>> M = ['bb', 'xx', 'aa' ]
+>>> M
+['bb', 'xx', 'aa']
+>>> M.sort()
+>>> M
+['aa', 'bb', 'xx']
+>>> M.reverse()
+>>> M
+['xx', 'bb', 'aa']
+>>> 
+
+```
+
+#### Bounds Checking:
+Pythons doesn't allow to refer items that are not present in the List
+Indexing off the end of a list and Assigning off the end are mistakes. Python throws error.
+```Python
+>>> L
+[123, 'spam', 1.23]
+>>> L[99]
+Traceback (most recent call last):
+  File "<pyshell#336>", line 1, in <module>
+    L[99]
+IndexError: list index out of range
+>>> L[99] = 21
+Traceback (most recent call last):
+  File "<pyshell#337>", line 1, in <module>
+    L[99] = 21
+IndexError: list assignment index out of range
+>>> L.insert(99, 21)
+>>> L
+[123, 'spam', 1.23, 21]
+>>> 
+```
+
+#### Nesting:
