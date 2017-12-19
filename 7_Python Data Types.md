@@ -505,6 +505,7 @@ By contrast, byte strings use only \x hexadecimal escapes to embed the encoded f
 
 Differenece: Python 2.X allows its normal and Unicode strings to be mixed in expressions as long as the normal string is all ASCII
              Python 3.X never allows its normal and byte strings to mix without explicit conversion.
+             
              ```
              u'x' + b'y'            # Works in 2.X, where b is optional and ignored
                                     # Fails in 3.3, where u is optional and ignored
@@ -574,3 +575,34 @@ AttributeError: 'NoneType' object has no attribute 'groups'
 >>> match.groups()
 ('usr', 'home', 'lumberjack')
 ```
+
+
+### LISTS
+Most general sequence provided by the language.
+__Lists are positionally ordered collections of arbitrary typed objects, and they have no fixed size.__
+They are __mutable__: Lists can be modified in place by assignment to offsets as well as a variety of list method calls.
+A very flexible tool for representing arbitrary collections:- lists of files in a folder, employees in a company etc.
+
+#### Sequence operations:
+List supports all sequence operations (discussed for strings)
+Result of those operation will be a list itself.
+```Python
+>>> 
+>>> L = [123, 'spam', 1.23]	# A list of three different type objects
+>>> len(L)
+3
+>>> L[0]                      # Indexing
+123
+>>> L[-1]
+1.23
+>>> L[:-1]                    # Slicing
+[123, 'spam']
+>>> L + [4, 5, 6]		# Concat/repeat makes new lists too
+[123, 'spam', 1.23, 4, 5, 6]
+>>> L * 2
+[123, 'spam', 1.23, 123, 'spam', 1.23]
+>>> L
+[123, 'spam', 1.23]
+>>> 
+```
+
