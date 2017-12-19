@@ -703,3 +703,31 @@ Supports arbitrary nesting.
 ```
 
 #### Comprehensions: 
+List comprehensions derive from set notation; they are a way to build a new list by running an expression on each item in a sequence, one at a time, from left to right.
+
+List comprehensions are coded in square brackets and are composed of an expression and a looping construct that share a variable name.
+(_row_ in the following example)
+```Python
+>>> 
+>>> # To get the column of a matrix by list comprehension
+>>> Matrix
+[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+>>> col2 = [row[1] for row in Matrix]
+>>> col2
+[2, 5, 8]
+>>> Matrix
+[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+>>> 
+```
+This comprehension means "Give me row[1] for each row in the matrix Matrix, in a new list." The result is a new list containing column 2 of the matrix.
+
+```Python
+>>> 
+>>> # To add 1 to each item in column 2
+>>> [row[1] + 1 for row in Matrix]
+[3, 6, 9]
+>>> # To filter out odd items
+>>> [row[1] for row in Matrix if row[1] % 2 == 0 ]
+[2, 8]
+>>> 
+```
