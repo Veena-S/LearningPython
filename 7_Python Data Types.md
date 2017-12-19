@@ -685,3 +685,21 @@ IndexError: list assignment index out of range
 ```
 
 #### Nesting:
+Supports arbitrary nesting.
+```Python
+>>> # A list containing 3 other lists - matrix
+>>> Matrix = [[1, 2, 3],
+	           [4, 5, 6],
+	           [7, 8, 9]]
+>>> Matrix
+[[1, 2, 3], [4, 5, 6], [7, 8, 9]]
+>>> # To get second row 
+>>> Matrix[1]
+[4, 5, 6]
+>>> # Get the item at second row , thrid column
+>>> Matrix[1][2]
+6
+>>> 
+```
+
+#### Comprehensions: 
