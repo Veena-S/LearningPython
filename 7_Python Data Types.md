@@ -492,3 +492,85 @@ In Python 3.X:-
    spÄÄÄm
    ```
    
+What these values mean and how they are used differs between _text_ strings and _byte_ strings.
+   - text strings: which are the normal string in 3.X and Unicode in 2.X
+   - byte strings: which are bytes in 3.X and the normal string in 2.X
+All these escapes can be used to embed actual Unicode code-point ordinal value integers in text strings. 
+By contrast, byte strings use only \x hexadecimal escapes to embed the encoded form of text, not its decoded code point values - encoded bytes are same as code points, only for some encodings and charachters.
+
+```Python
+>>> '\u00A3', '\u00A3'.encode('latin1'), b'\xA3'.decode('latin1')
+('£', b'\xa3', '£')
+```
+
+Differenece: Python 2.X allows its normal and Unicode strings to be mixed in expressions as long as the normal string is all ASCII
+             Python 3.X never allows its normal and byte strings to mix without explicit conversion.
+             ```
+             u'x' + b'y'            # Works in 2.X, where b is optional and ignored
+                                    # Fails in 3.3, where u is optional and ignored
+             u'x' + 'y'             # Works in 2.X: u'xy' and Works in 3.3: 'xy'
+             'x' + b'y'.decode()    # Works in 3.X if decode bytes to str: 'xy'
+             'x'.encode() + b'y'    # Works in 3.X if encode str to bytes: b'xy'
+             ```
+             
+Apart from these string types, Unicode processing mostly reduces to transferring text data to and from files - text is encoded to bytes when stored in a file, and decoded into characters (a.k.a. code points) when read back into memory. Once it is loaded, we usually process text as strings in decoded form only.
+
+Because of this model, though, _files are also content specific in 3.X_: 
+   - text files implement named encodings and accept & return ```str``` strings
+   - binary files deal in ```bytes``` strings for raw binary data
+   In 2.X, normal files' content is ```str``` bytes, and a special ```codecs``` module handles Unicode and represents content with the ```unicode``` type.
+   
+ 
+#### Pattern Matching
+None of the string objects in Python own methods to support pattern-based text processing.
+
+To do pattern matching in Python, import a module ```re```. This module has analogous calls for searching, splitting and replacement.
+
+An example to search for a substring that begins with the world "Hello", followed by zero or more tabs or spaces, followed by srbitrary characters to be saved as a matched group, terminated by the word "world".
+```Python
+>>> import re
+>>> match = re.match( 'Hello[ \t]*(.*)world', 'Hello    Python world' )
+>>> match.group( 1 )
+'Python '
+>>> match.groups()
+('Python ',)
+>>> match = re.match( 'Hello[\t]*(.*)world', 'Hello    Python world' )
+>>> match.group( 1 )
+'    Python '
+>>> match = re.match( 'Hello[\t]*(.*)world', 'Hello~~~~~Python world' )
+>>> match.group( 1 )
+'~~~~~Python '
+>>> match = re.match( 'Hello[\t]*(.*)world', 'Hello~~~~~Python~~~world' )
+>>> match.group( 1 )
+'~~~~~Python~~~'
+>>> match = re.match( 'Hello[\t]*world', 'Hello~~~~~Python~~~world' )
+>>> match.group( 1 )
+###.....................Error Message...........
+AttributeError: 'NoneType' object has no attribute 'group'
+```
+
+If such a substring is found, portions of the substring matched by parts of the pattern enclosed in parentheses are available as groups.
+
+Following code picks out three groups separated by slashes, and is similar to splitting by an alternative program
+```Python
+>>> match = re.match( '[/:](.*)[/:](.*)[/:](.*)', '/usr/home:lumberjack' )
+>>> match.groups()
+('usr', 'home', 'lumberjack')
+
+>>> re.split( '[/:]', '/usr/home/lumberjack' )
+['', 'usr', 'home', 'lumberjack']
+>>> 
+
+>>> # Following code returns error.
+>>> match = re.match( '[/](.*)[/](.*)[/](.*)', '/usr/home:lumberjack' )
+>>> match.groups()
+AttributeError: 'NoneType' object has no attribute 'groups'
+
+>>> match = re.match( '[/](.*)[:](.*)[/](.*)', '/usr/home:lumberjack' )
+>>> match.groups()
+AttributeError: 'NoneType' object has no attribute 'groups'
+
+>>> match = re.match( '[/](.*)[/](.*)[:](.*)', '/usr/home:lumberjack' )
+>>> match.groups()
+('usr', 'home', 'lumberjack')
+```
