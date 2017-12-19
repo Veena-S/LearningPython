@@ -438,3 +438,57 @@ Python also supports a _raw_ string literal that turns off the backslash mechani
 'C:\text\new'
 >>> 
 ```
+
+#### Unicode Strings
+Python's Strings supports full Unicode required for processing text in internationalized character sets.
+In Python 3.X:-
+   - normal ```str``` string handles Unicode text (including ASCII)
+   - a distinct ```bytes``` string type represents raw byte values ( including media and encoded text )
+   - for 2.X compatibility, 2.X Unicode literals are supported in 3.3 and later ( they are treated the same as normal 3.X str strings)
+   
+   ```Python
+   >>> 'sp\xc4m'		# 3.X: normal str strings are Unicode texts
+   'spÄm'
+   >>> b'a\x01c'		# bytes strings are byte-based data
+   b'a\x01c'
+   >>> u'sp\u00c4m'	# The 2.X Unicode literal works in 3.3+: just str
+   'spÄm'
+   >>> 
+   ```
+   
+  In Python 2.X:-
+   - the normal ```str``` string handles both 8-bit character strings (including ASCII text) and raw byte values
+   - a distinct ```unicode``` string type represents Unicode text
+   - For 3.X compatibility, 3.X bytes literals are supported in 2.6 and later ( they are treated the same as normal 2.X ```str``` strings)
+   ```Python
+   >>> print ( u'sp\xc4m' )	#2.X: Unicode strings as distinct types
+   spÄm
+   >>> 'a\x01c'			      # Normal str strings contain byte-based text/data
+   'a\x01c'
+   >>> b'a\x01c'			      # The 3.X bytes literal works in 2.6+: just str
+   b'a\x01c'
+   ```
+   In both 2.X and 3.x, non-unicode strings are sequences of 8-bit bytes that print with ASCII characters when possible, and Unicode strings are sequences of Unicode code points - identifying numbers for characters, which do not necessarily map to single bytes when encoded to files or stored in memory. In fact, the notion of bytes doesn't apply to Unicode: some encodings include character code points too large for a byte, and even simple 7-bit ASCII text is not stored one byte per character under some encodings and memory storage schemes.
+   
+  ```Python
+  >>> 'spam'		# Characters may be 1, 2 or 4 bytes in memory
+   'spam'
+   >>> 'spam'.encode( 'utf8' )	#Encoded to 4 bytes in UTF-8 files
+   b'spam'
+   >>> 'spam'.encode( 'utf16' )	# But encoded to 10 bytes in UTF-16
+   b'\xff\xfes\x00p\x00a\x00m\x00'
+   >>> 
+  ```
+  
+  Both 3.X and 2.X also supports the following:
+   - the ```bytearray``` string type,which is essentially a ```bytes``` string ( a ```str``` in 2.X) that supports most of the list object's in-place mutable change operations.
+   - Support coding the n-n-ASCII characters with _\x_ hexadecimal and shot _\u_ and long _\U_ Unicode escapes, as well as file-wide encodings declared in program source files.
+   ```Python
+   >>> # Sample code showing non-ASCII character coded in 3 ways in 3.X
+   >>> 'sp\xc4\u00c4\U000000c4m'
+   'spÄÄÄm'
+   >>> # In 2.X
+   >>> print(u'sp\xc4\u00c4\U000000c4m')
+   spÄÄÄm
+   ```
+   
