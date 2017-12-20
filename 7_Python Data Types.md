@@ -19,7 +19,7 @@ Object Type                   | Example literal/creation
 ------------------------------|--------------------------------------------------
 Numbers                       | 1234, 3.1415, 3+4j, 0b111, Decimal(), Fraction()
 Strings                       | 'spam', "Bob's", b'a\x01c', u'sp\xc4m'
-Lists                         | [1, [2, 'three'], 4.5], list(range(10))
+Lists                         | \[1, \[2, 'three'], 4.5], list(range(10))
 Dictionaries                  | { 'food' : 'spam', 'taste' : 'yum' }, dict(hours=10)
 Tuples                        | (1, 'spam', 4, 'U'), tuple('spam'), namedtuple
 Files                         | open('eggs.txt'), open(r'C:\ham.bin', 'wb')
@@ -44,8 +44,8 @@ Includes:
 - full-featured _sets_
 
 Numbers in Python support the normal mathematical operations like:
-- + performs addition
-- * performs multiplication
+- \+ performs addition
+- \* performs multiplication
 - ** performs exponentiation
 
 Floating point numbers behaves differently in version before Python 2.7 and 3.1 and the after those versions (3.X):- 
