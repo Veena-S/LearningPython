@@ -29,3 +29,9 @@ c ** 2
 #    c ** 2
 #NameError: name 'c' is not defined
 
+
+# Illustrating operator grouping
+b / 2 + a		# Here Python automatically groups the components according to its precedence rules.
+# Result:- 5.0  # / have precedence over +
+b / (2.0 + a)	# Here parentheses are added to force Python to evaluate the + first.
+# Result:- 0.8
