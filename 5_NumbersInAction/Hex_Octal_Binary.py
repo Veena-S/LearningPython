@@ -15,9 +15,7 @@
 
 # Here, the octal value 0o377, the hex value 0xFF, and the binary value 0b11111111 are all decimal 255.
 # The F digits in the hex value, for example, each mean 15 in decimal and a
-# 4-bit 1111 in binary, and reflect powers of 16. 
-# Thus, the hex value 0xFF and others convert to decimal values as follows:
-
+# 4-bit 1111 in binary, and reflect powers of 16. Thus, the hex value 0xFF and others convert to decimal values as follows:
 0xFF, ( 15 * ( 16 ** 1 )) + ( 15 * ( 16 ** 0 ))
 # Result: (255, 255)
 
